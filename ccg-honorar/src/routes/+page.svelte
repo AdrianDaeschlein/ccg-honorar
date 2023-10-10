@@ -31,15 +31,18 @@
     <div class="flex flex-col md:flex-row">
         <div class="input-div w-full md:w-1/3 p-4 bg-zinc-600">
             <!-- Single Input Component -->
-            <div class="flex items-center">
-                <label for="countries" class="block w-2/3  mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of employees</label>
-                <div class="tooltip ml-2 mr-2">
-                    <span class="material-icons">info</span>
+            <div class="flex items-center align-middle">
+                <div class="flex items-center w-1/2 ">
+                    <span class="align-middle text-sm">Number of employees</span>
+                </div>
+                
+                <div class="tooltip ml-2 mr-2 justify-items-center">
+                    <span class="material-icons align-middle">info</span>
                     <div class="tooltiptext">
                       Select the number of employees in your organization
                     </div>
-                  </div>
-                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+                <select id="employees" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected>Select number</option>
                     <option value="1">1-4</option>
                     <option value="2">5-9</option>
@@ -54,6 +57,3 @@
         </div>
     </div>
 </div>
-
-
-
