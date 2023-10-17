@@ -1,3 +1,10 @@
+/**
+ * CBS NEW bold is used exclusively for headlines. (CBS NEW regular is no longer used.)
+ * CBS Serif regular is used for body text in print publications. CBS Serif italic is the secondary choice for headings.
+ * CBS Sans Used in PowerPoint presentations and online on websites.
+ */
+
+
 @font-face {
     font-family: 'CbsNewBold';
     src: url('/fonts/CBS-NEW-BOLD.ttf') format('truetype');
@@ -57,4 +64,8 @@
     src: url('/fonts/CBSSerif-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+}
+
+* {
+    font-family: 'CbsSansRegular', sans-serif;
 }
