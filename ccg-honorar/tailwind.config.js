@@ -19,6 +19,15 @@ export default {
       },
       fontFamily: {
         'cbs-new-bold': ['CbsNewBold', 'sans-serif'],
+        'cbs-new-regular': ['CbsNewRegular', 'sans-serif'],
+        'cbs-sans-bold': ['CbsSansBold', 'sans-serif'],
+        'cbs-sans-bold-italic': ['CbsSansBoldItalic', 'sans-serif'],
+        'cbs-sans-italic': ['CbsSansItalic', 'sans-serif'],
+        'cbs-sans-regular': ['CbsSansRegular', 'sans-serif'],
+        'cbs-serif-bold': ['CbsSerifBold', 'serif'],
+        'cbs-serif-bold-italic': ['CbsSerifBoldItalic', 'serif'],
+        'cbs-serif-italic': ['CbsSerifItalic', 'serif'],
+        'cbs-serif-regular': ['CbsSerifRegular', 'serif'],
       }
     },
   },

@@ -4,3 +4,57 @@
     font-weight: bold;
     font-style: normal;
 }
+@font-face {
+    font-family: 'CbsNewRegular';
+    src: url('/fonts/CBS-NEW-REGULAR.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CbsSansBold';
+    src: url('/fonts/CBSSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CbsSansBoldItalic';
+    src: url('/fonts/CBSSans-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CbsSansItalic';
+    src: url('/fonts/CBSSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CbsSansRegular';
+    src: url('/fonts/CBSSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CbsSerifBold';
+    src: url('/fonts/CBSSerif-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: serif;
+}
+@font-face {
+    font-family: 'CbsSerifBoldItalic';
+    src: url('/fonts/CBSSerif-BoldItalic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CbsSerifItalic';
+    src: url('/fonts/CBSSerif-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CbsSerifRegular';
+    src: url('/fonts/CBSSerif-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
