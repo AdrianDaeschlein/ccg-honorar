@@ -41,8 +41,8 @@
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
-<h1 class="text-3xl font-bold underline">Bestyrelseshonorarer - Board Fees</h1>
-<p>What are common salaries for Danish Boards Members?</p>
+<h1 class="text-3xl font-bold underline text-cbs-blue">Bestyrelseshonorarer - Board Fees</h1>
+<p class="text-cbs-blue">What are common salaries for Danish Boards Members?</p>
 
 <div class="container mx-auto">
     <div class="flex flex-col md:flex-row">
@@ -74,7 +74,7 @@
                 {/each}
             {/if} 
         </div>
-        <div class="output-div w-full md:w-2/3 p-4 bg-indigo-700">
+        <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue">
             <!-- answerdict to string -->
             <p class="text-white">Your answers: {JSON.stringify(answersDict)}</p>
         </div>
