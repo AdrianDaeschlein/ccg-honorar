@@ -46,18 +46,18 @@
 <div class="flex justify-end mt-2 mr-2">
     <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
-<h1 class="text-3xl font-cbs-new-bold text-cbs-blue">BOARD FEE CALCULATOR</h1>
-<p class="text-cbs-blue font-cbs-serif-italic">What are common salaries for Danish Boards Members?</p>
+<h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-20">BOARD FEE CALCULATOR</h1>
+<p class="text-cbs-blue font-cbs-serif-italic ml-20">What are common salaries for Danish Boards Members?</p>
 
 <div class="container mx-auto">
     <div class="flex flex-col md:flex-row">
-        <div class="input-div w-full md:w-1/3 p-4 bg-zinc-600">
+        <div class="input-div w-full md:w-1/3 p-4">
             <!-- Input Component Loop -->
             {#if isLoading}
                 <p>Loading...</p>
             {:else}
                 {#each results as result}
-                <div class="flex items-center align-middle">
+                <div class="flex items-center align-middle m-2">
                     <div class="flex items-center w-1/2 ">
                         <span class="align-middle text-sm">{result[1].text}</span>
                     </div>
@@ -77,9 +77,10 @@
                     </select>
                 </div>
                 {/each}
-            {/if} 
+            {/if}
+            <button class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
         </div>
-        <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue">
+        <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl ">
             <!-- answerdict to string -->
             <p class="text-white">Your answers: {JSON.stringify(answersDict)}</p>
         </div>
