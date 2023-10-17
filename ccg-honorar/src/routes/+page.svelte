@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import "../lib/styles/global.css";
 
     let HONORAR_VARIABLES: any;
     let results: any[] = [];
@@ -45,7 +46,7 @@
 <div class="flex justify-end mt-2 mr-2">
     <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
-<h1 class="text-3xl font-bold underline text-cbs-blue">Bestyrelseshonorarer - Board Fees</h1>
+<h1 class="text-3xl font-cbs-new-bold text-cbs-blue">BOARD FEE CALCULATOR</h1>
 <p class="text-cbs-blue">What are common salaries for Danish Boards Members?</p>
 
 <div class="container mx-auto">

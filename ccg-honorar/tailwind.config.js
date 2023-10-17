@@ -16,6 +16,9 @@ export default {
         'cbs-light-blue': '#C9E0F5',
         'cbs-peach': "#F0D3C5",
         'cbs-light-green': '#C9E7D7',
+      },
+      fontFamily: {
+        'cbs-new-bold': ['CbsNewBold', 'sans-serif'],
       }
     },
   },
