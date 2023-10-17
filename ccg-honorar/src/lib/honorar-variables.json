@@ -1,0 +1,60 @@
+{
+  "employees": {
+    "text": "Number of employees",
+    "explanation": "Select the number of employees in your organization",
+    "options": [
+      {
+        "text": "1-4",
+        "value": "1"
+      },
+      {
+        "text": "5-9",
+        "value": "2"
+      },
+      {
+        "text": "10-50",
+        "value": "3"
+      },
+      {
+        "text": "50-250",
+        "value": "4"
+      },
+      {
+        "text": "250+",
+        "value": "5"
+      },
+      {
+        "text": "1001-5000",
+        "value": "1001-5000"
+      }
+    ]
+  },
+  "foreign_board": {
+    "text": "Foreign board members",
+    "explanation": "Are there foreign board members in your organization?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "listed": {
+    "text": "Listed",
+    "explanation": "Is your organization listed on a stock exchange?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  }
+}
