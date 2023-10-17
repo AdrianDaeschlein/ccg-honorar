@@ -41,6 +41,10 @@
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
+<!-- insert svg  -->
+<div class="flex justify-end mt-2 mr-2">
+    <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4">
+</div>
 <h1 class="text-3xl font-bold underline text-cbs-blue">Bestyrelseshonorarer - Board Fees</h1>
 <p class="text-cbs-blue">What are common salaries for Danish Boards Members?</p>
 
