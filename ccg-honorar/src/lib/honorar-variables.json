@@ -25,6 +25,188 @@
       }
     ]
   },
+  "board_size": {
+    "text": "Board Size",
+    "explanation": "How many active people should sit on the board?",
+    "options": [
+      {
+        "text": "1",
+        "value": "1"
+      },
+      {
+        "text": "2",
+        "value": "2"
+      },
+      {
+        "text": "3",
+        "value": "3"
+      },
+      {
+        "text": "4",
+        "value": "4"
+      },
+      {
+        "text": "5",
+        "value": "5"
+      },
+      {
+        "text": "6",
+        "value": "6"
+      },
+      {
+        "text": "7",
+        "value": "7"
+      }
+    ]
+  },
+  "average_wage_cost": {
+    "text": "Average wage cost",
+    "explanation": "What is the average wage cost in your organization?",
+    "options": [
+      {
+        "text": "0-1000",
+        "value": "1"
+      },
+      {
+        "text": "1000-2000",
+        "value": "2"
+      },
+      {
+        "text": "2000-3000",
+        "value": "3"
+      },
+      {
+        "text": "3000-4000",
+        "value": "4"
+      },
+      {
+        "text": "4000-5000",
+        "value": "5"
+      },
+      {
+        "text": "5000-6000",
+        "value": "6"
+      },
+      {
+        "text": "6000-7000",
+        "value": "7"
+      },
+      {
+        "text": "7000-8000",
+        "value": "8"
+      },
+      {
+        "text": "8000-9000",
+        "value": "9"
+      },
+      {
+        "text": "9000-10000",
+        "value": "10"
+      },
+      {
+        "text": "10000+",
+        "value": "11"
+      }
+    ]
+  },
+  "as": {
+    "text": "A/S",
+    "explanation": "Is your organization an A/S?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "aps": {
+    "text": "ApS",
+    "explanation": "Is your organization an ApS?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "foundation": {
+    "text": "Foundation",
+    "explanation": "Is your organization a foundation?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "owner_managed": {
+    "text": "Owner managed",
+    "explanation": "Is your organization owner managed?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "listed_experience": {
+    "text": "Listed experience",
+    "explanation": "Does at least one of the board members have experience as a board member of a company, which is listed on a stock exchange?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "daughter": {
+    "text": "Daughter",
+    "explanation": "Is your organization a daughter company?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
+  "parent": {
+    "text": "Parent",
+    "explanation": "Is your organization a parent company or holding?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ]
+  },
   "foreign_board": {
     "text": "Foreign board members",
     "explanation": "Are there foreign board members in your organization?",
