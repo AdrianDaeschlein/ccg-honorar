@@ -1,11 +1,19 @@
 <script lang="ts">
+    import * as XLSX from 'xlsx';
     import { onMount } from 'svelte';
     import "../lib/styles/global.css";
 
     let HONORAR_VARIABLES: any;
     let results: any[] = [];
     let isLoading = true;
+    let valuesCalculated = false;
     let answersDict: { [key: string]: string } = {};
+
+    let mean = 0;
+    let median = 0;
+    let std = 0;
+    let p25 = 0;
+    let p75 = 0;
 
     onMount(async () => {
         fetch('../src/lib/honorar-variables.json')
@@ -17,6 +25,46 @@
                 isLoading = false;
             });
     })
+
+    function onCalculate() {
+        // Assuming 'baseline.xlsx' is in the public folder and can be fetched
+        let value: string = ''
+        fetch('../src/lib/baseline.xlsx')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.arrayBuffer();
+            })
+            .then(arrayBuffer => {
+                const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
+                console.log(workbook);
+                // Here you can get the first sheet name to access the sheet:
+                const firstSheetName = workbook.SheetNames[1];
+                const worksheet = workbook.Sheets[firstSheetName];
+                // Convert sheet to JSON
+                const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet);
+                // Now jsonData contains your Excel file data as an array of objects
+                // You can access the data you need for calculations here
+                // For example, if you want to get the value from the first row and first column:
+                median = jsonData[Number(answersDict['employees'])]['Member Median'];
+                mean = jsonData[Number(answersDict['employees'])]['Member Mean'];
+                std = jsonData[Number(answersDict['employees'])]['Member SD'];
+                p25 = jsonData[Number(answersDict['employees'])]['Member p25'];
+                p75 = jsonData[Number(answersDict['employees'])]['Member p75'];
+
+                // Do your calculations with the obtained values
+                console.log(median);
+
+
+            })
+            .catch(error => {
+                console.error("Error fetching or parsing the Excel file", error);
+            });
+        // timeput half second
+        
+        
+    };
 </script>
 
 <style>
@@ -78,11 +126,15 @@
                 </div>
                 {/each}
             {/if}
-            <button class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
+            <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
         </div>
         <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl ">
             <!-- answerdict to string -->
-            <p class="text-white">Your answers: {JSON.stringify(answersDict)}</p>
+            <p class="text-white">Mean: {mean}</p>
+            <p class="text-white">Median: {median}</p>
+            <p class="text-white">Standard Deviation: {std}</p>
+            <p class="text-white">25th Percentile: {p25}</p>
+            <p class="text-white">75th Percentile: {p75}</p>
         </div>
     </div>
 </div>
