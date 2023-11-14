@@ -1,5 +1,6 @@
 <script lang="ts">
     import * as XLSX from 'xlsx';
+    import * as d3 from 'd3';
     import { onMount } from 'svelte';
     import "../lib/styles/global.css";
 
@@ -38,7 +39,6 @@
             })
             .then(arrayBuffer => {
                 const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
-                console.log(workbook);
                 // Here you can get the first sheet name to access the sheet:
                 const firstSheetName = workbook.SheetNames[1];
                 const worksheet = workbook.Sheets[firstSheetName];
@@ -54,17 +54,75 @@
                 p75 = jsonData[Number(answersDict['employees'])]['Member p75'];
 
                 // Do your calculations with the obtained values
-                console.log(median);
-
-
+                sketchGraph();
             })
             .catch(error => {
                 console.error("Error fetching or parsing the Excel file", error);
             });
-        // timeput half second
-        
+
         
     };
+
+    function sketchGraph() {
+        console.log(mean, std)
+        let simulatedData: number[] = d3.range(100000).map(() => {
+            let value;
+            do {
+                value = d3.randomNormal(mean, std)();
+            } while (value < 0);
+            return value;
+        });
+
+        const margin = { top: 30, right: 30, bottom: 30, left: 50 },
+            width = 800 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
+
+        const svg = d3.select("#kdePlot")
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const maxData = d3.max(simulatedData) ?? mean; // Fallback to mean if max is undefined
+        const minData = d3.min(simulatedData) ?? mean; // Fallback to mean if min is undefined
+        console.log(maxData, minData);
+        // Create the X-axis scale
+        const x = d3.scaleLinear()
+            .domain([0, 350000])
+            .range([0, width]);
+
+        // Add the X-axis to the svg
+        svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x));
+
+        // Calculate the KDE
+        const kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(40), simulatedData);
+        console.log(simulatedData);
+        console.log(kde);
+
+        // Add the KDE path to the svg
+        svg.append("path")
+            .datum(kde)
+            .attr("fill", "#69b3a2")
+            .attr("stroke", "#000")
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+                .curve(d3.curveBasis)
+                .x((d: any) => x(d[0]))
+                .y((d: any) => height - d[1] * 5000000) // Scale the y value to fit in our graph, you may need to adjust this
+            );
+    }
+
+    function kernelDensityEstimator(kernel: any, X: any, data: number[]) {
+        return X.map((x: number) => [x, d3.mean(data, (v: number) => kernel(x - v))]);
+    }
+
+    function kernelEpanechnikov(k: number) {
+        return (v: number) => Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
+    }
+
 </script>
 
 <style>
@@ -129,12 +187,14 @@
             <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
         </div>
         <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl ">
-            <!-- answerdict to string -->
-            <p class="text-white">Mean: {mean}</p>
-            <p class="text-white">Median: {median}</p>
-            <p class="text-white">Standard Deviation: {std}</p>
-            <p class="text-white">25th Percentile: {p25}</p>
-            <p class="text-white">75th Percentile: {p75}</p>
+            <div class="flex">
+                <p class="text-white">Mean: {mean}</p>
+                <p class="text-white">Median: {median}</p>
+                <p class="text-white">Standard Deviation: {std}</p>
+                <p class="text-white">25th Percentile: {p25}</p>
+                <p class="text-white">75th Percentile: {p75}</p>
+            </div>
+            <div id="kdePlot"></div>
         </div>
     </div>
 </div>
