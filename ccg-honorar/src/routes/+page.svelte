@@ -2,13 +2,35 @@
     import * as XLSX from 'xlsx';
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+    import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
     import "../lib/styles/global.css";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCSq9_HALkQ9bLphnpvQYdlJjKei-B3NMg",
+        authDomain: "ccg-honorar.firebaseapp.com",
+        projectId: "ccg-honorar",
+        storageBucket: "ccg-honorar.appspot.com",
+        messagingSenderId: "382719109528",
+        appId: "1:382719109528:web:bb15985dd959d73f7be3ed",
+        measurementId: "G-T88Q5RVGZB"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    // const analytics = getAnalytics(app);
+
+
 
     let HONORAR_VARIABLES: any;
     let results: any[] = [];
     let isLoading = true;
     let valuesCalculated = false;
     let answersDict: { [key: string]: string } = {};
+    
+    let keyword = ""
+    let actual_salary = ""
 
     let mean = 0;
     let median = 0;
@@ -123,6 +145,15 @@
         return (v: number) => Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
     }
 
+    async function pushCorrection() {
+        console.log(answersDict)
+        let correctionAnswerDict = answersDict
+        correctionAnswerDict['keyword'] = keyword
+        correctionAnswerDict['actual_salary'] = actual_salary
+
+		await addDoc(collection(db, 'honorar-corrections'), correctionAnswerDict);
+	}
+
 </script>
 
 <style>
@@ -153,7 +184,7 @@
     <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
 <h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-20">BOARD FEE CALCULATOR</h1>
-<p class="text-cbs-blue font-cbs-serif-italic ml-20">What are common salaries for Danish Boards Members?</p>
+<p class="text-cbs-blue font-cbs-serif-italic ml-20">What are common salaries for Danish Board Members?</p>
 
 <div class="container mx-auto">
     <div class="flex flex-col md:flex-row">
@@ -187,14 +218,35 @@
             <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
         </div>
         <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl ">
-            <div class="flex">
-                <p class="text-white">Mean: {mean}</p>
-                <p class="text-white">Median: {median}</p>
-                <p class="text-white">Standard Deviation: {std}</p>
-                <p class="text-white">25th Percentile: {p25}</p>
-                <p class="text-white">75th Percentile: {p75}</p>
+            <div class="flex justify-around">
+                <div class="flex flex-col items-center">
+                    <p class="text-white">25th Percentile</p>
+                    <p class="text-white">{p25}</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <p class="text-white">Median</p>
+                    <p class="text-white">{median}</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <p class="text-white">75th Percentile</p>
+                    <p class="text-white">{p75}</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <p class="text-white">Mean</p>
+                    <p class="text-white">{mean}</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <p class="text-white">Standard Deviation</p>
+                    <p class="text-white">{std}</p>
+                </div>
             </div>
             <div id="kdePlot"></div>
+            <p class="text-cbs-white">Help us and send a correction: </p>
+            <div class="flex m-2 h-10 items-center space-x-2">
+                <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <input bind:value={actual_salary} placeholder="Actual Monthly Salary in DKK" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full h-full">Send Correction</button>
+            </div>
         </div>
     </div>
 </div>
