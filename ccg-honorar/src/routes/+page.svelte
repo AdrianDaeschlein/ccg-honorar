@@ -90,9 +90,7 @@
     };
 
     function onAdapt() {
-        let employees = answersDict['employees']
         let correctionValues: { key: string, value: number[] }[] = [];
-        console.log(answersDict)
         fetch('../src/lib/baseline.xlsx')
             .then(response => {
                 if (!response.ok) {
@@ -108,7 +106,6 @@
                 // Convert sheet to JSON
                 // Convert sheet to an array of arrays
                 const arrayData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-                const valueAtRow2Column4 = arrayData[1][3];
 
                 for (var i in answersDict) {
                     const danish_key = HONORAR_VARIABLES[i]['danish_key']
@@ -128,6 +125,11 @@
                             correctionValue = [0, 0, 0]
                         }
 
+                        // TODO fix for mc questions
+                        if (answersDict[i] == "Select answer" || answersDict[i] == "2") {
+                            correctionValue = [0, 0, 0]
+                        }
+
                         correctionValues.push({ key: danish_key, value: correctionValue })
                     }
                 }
@@ -135,13 +137,21 @@
             .catch(error => {
                 console.error("Error fetching or parsing the Excel file", error);
             });
-        switch (employees) {
-            case "0":
-                break;
         
-            default:
-                break;
-        }
+        // timeout to wait for the fetch to finish
+        setTimeout(() => {
+            console.log(p25, median, p75)
+            console.log(answersDict)
+            for (let i in correctionValues) {
+                console.log("correctionValues i",correctionValues[i])
+                p25 = Math.round(p25 * (1 + Number(correctionValues[i].value[0])));
+                median = Math.round(median * (1 + Number(correctionValues[i].value[1])));
+                p75 = Math.round(p75 * (1 + Number(correctionValues[i].value[2])));
+            }
+            console.log(p25, median, p75)
+        }, 1000);
+
+        
     }
 
     function sketchGraph() {
