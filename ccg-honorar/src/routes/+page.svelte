@@ -122,10 +122,13 @@
                             arrayData[DATA_VALUES[danish_key]-2][column + 1].replace(/\*/g, ''),
                             arrayData[DATA_VALUES[danish_key]-2][column + 2].replace(/\*/g, ''),
                         ]
-                        
-                        console.log("answersDict", answersDict)
+
+                        // make laborcosts_employees 0 for now
+                        if (danish_key == "laborcosts_employees") {
+                            correctionValue = [0, 0, 0]
+                        }
+
                         correctionValues.push({ key: danish_key, value: correctionValue })
-                        console.log("correctionValues", correctionValues)
                     }
                 }
             })
