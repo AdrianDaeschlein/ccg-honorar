@@ -3,7 +3,6 @@
     import * as d3 from 'd3';
     import { onMount } from 'svelte';
     import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
     import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
     import "../lib/styles/global.css";
 
@@ -24,6 +23,7 @@
 
 
     let HONORAR_VARIABLES: any;
+    let DATA_VALUES: any;
     let results: any[] = [];
     let isLoading = true;
     let valuesCalculated = false;
@@ -47,11 +47,16 @@
                     results.push([i, HONORAR_VARIABLES [i]]);
                 isLoading = false;
             });
+
+        fetch('../src/lib/data_values.json')
+            .then((response) => response.json())
+            .then(json => {
+                DATA_VALUES = json
+                isLoading = false;
+            });
     })
 
     function onCalculate() {
-        // Assuming 'baseline.xlsx' is in the public folder and can be fetched
-        let value: string = ''
         fetch('../src/lib/baseline.xlsx')
             .then(response => {
                 if (!response.ok) {
@@ -75,18 +80,68 @@
                 p25 = jsonData[Number(answersDict['employees'])]['Member p25'];
                 p75 = jsonData[Number(answersDict['employees'])]['Member p75'];
 
-                // Do your calculations with the obtained values
                 sketchGraph();
             })
             .catch(error => {
                 console.error("Error fetching or parsing the Excel file", error);
             });
 
-        
+        onAdapt();
     };
 
+    function onAdapt() {
+        let employees = answersDict['employees']
+        let correctionValues: { key: string, value: number[] }[] = [];
+        console.log(answersDict)
+        fetch('../src/lib/baseline.xlsx')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.arrayBuffer();
+            })
+            .then(arrayBuffer => {
+                const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
+                // Here you can get the first sheet name to access the sheet:
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                // Convert sheet to JSON
+                // Convert sheet to an array of arrays
+                const arrayData: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                const valueAtRow2Column4 = arrayData[1][3];
+
+                for (var i in answersDict) {
+                    const danish_key = HONORAR_VARIABLES[i]['danish_key']
+                    if (danish_key == "") {
+                        continue;
+                    } else {
+                        let column: number = 1;
+                        answersDict['employees'] == "Select answer" ? column = 1 : column = 1 + 3*Number(answersDict['employees']);
+                        let correctionValue = [
+                            arrayData[DATA_VALUES[danish_key]-2][column].replace(/\*/g, ''),
+                            arrayData[DATA_VALUES[danish_key]-2][column + 1].replace(/\*/g, ''),
+                            arrayData[DATA_VALUES[danish_key]-2][column + 2].replace(/\*/g, ''),
+                        ]
+                        
+                        console.log("answersDict", answersDict)
+                        correctionValues.push({ key: danish_key, value: correctionValue })
+                        console.log("correctionValues", correctionValues)
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching or parsing the Excel file", error);
+            });
+        switch (employees) {
+            case "0":
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     function sketchGraph() {
-        console.log(mean, std)
         let simulatedData: number[] = d3.range(100000).map(() => {
             let value;
             do {
@@ -108,7 +163,6 @@
 
         const maxData = d3.max(simulatedData) ?? mean; // Fallback to mean if max is undefined
         const minData = d3.min(simulatedData) ?? mean; // Fallback to mean if min is undefined
-        console.log(maxData, minData);
         // Create the X-axis scale
         const x = d3.scaleLinear()
             .domain([0, 350000])
@@ -121,8 +175,6 @@
 
         // Calculate the KDE
         const kde = kernelDensityEstimator(kernelEpanechnikov(7), x.ticks(40), simulatedData);
-        console.log(simulatedData);
-        console.log(kde);
 
         // Add the KDE path to the svg
         svg.append("path")
@@ -146,7 +198,6 @@
     }
 
     async function pushCorrection() {
-        console.log(answersDict)
         let correctionAnswerDict = answersDict
         correctionAnswerDict['keyword'] = keyword
         correctionAnswerDict['actual_salary'] = actual_salary

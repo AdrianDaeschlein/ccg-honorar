@@ -23,7 +23,8 @@
         "text": "250+",
         "value": "5"
       }
-    ]
+    ],
+    "danish_key": ""
   },
   "board_size": {
     "text": "Board Size",
@@ -45,7 +46,8 @@
         "text": "9+",
         "value": "4"
       }
-    ]
+    ],
+    "danish_key": "board_size_fordeling"
   },
   "average_wage_cost": {
     "text": "Average wage cost",
@@ -95,7 +97,8 @@
         "text": "10000+",
         "value": "11"
       }
-    ]
+    ],
+    "danish_key": "laborcosts_employees"
   },
   "as": {
     "text": "A/S",
@@ -109,7 +112,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "as"
   },
   "aps": {
     "text": "ApS",
@@ -123,7 +127,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": ""
   },
   "foundation": {
     "text": "Foundation",
@@ -137,7 +142,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "foundation"
   },
   "owner_managed": {
     "text": "Owner managed",
@@ -151,7 +157,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "ceo_board"
   },
   "listed_experience": {
     "text": "Listed experience",
@@ -165,7 +172,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "board_listed_exp"
   },
   "daughter": {
     "text": "Daughter",
@@ -179,7 +187,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "datter"
   },
   "parent": {
     "text": "Parent",
@@ -193,7 +202,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "mother"
   },
   "foreign_board": {
     "text": "Foreign board members",
@@ -207,7 +217,8 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "foreign_board"
   },
   "listed": {
     "text": "Listed",
@@ -221,6 +232,7 @@
         "text": "No",
         "value": "2"
       }
-    ]
+    ],
+    "danish_key": "listed"
   }
 }
