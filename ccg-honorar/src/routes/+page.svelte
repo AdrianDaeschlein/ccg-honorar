@@ -1,6 +1,7 @@
 <script lang="ts">
     import * as XLSX from 'xlsx';
     import * as d3 from 'd3';
+    import Boxplot from '$lib/boxplot.svelte';
     import { onMount } from 'svelte';
     import { initializeApp } from "firebase/app";
     import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
@@ -24,6 +25,7 @@
 
     let HONORAR_VARIABLES: any;
     let DATA_VALUES: any;
+    let MONTHLY_AVG_EXPORT: number[] = [];
     let results: any[] = [];
     let isLoading = true;
     let valuesCalculated = false;
@@ -53,6 +55,25 @@
             .then(json => {
                 DATA_VALUES = json
                 isLoading = false;
+            });
+        
+        fetch('../src/lib/monthly_avg_export.xlsx')
+        .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.arrayBuffer();
+            })
+            .then(arrayBuffer => {
+                const workbook = XLSX.read(arrayBuffer, { type: 'buffer' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData: number[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                MONTHLY_AVG_EXPORT = jsonData.flat();
+
+            })
+            .catch(error => {
+                console.error("Error fetching or parsing the Excel file", error);
             });
     })
 
@@ -305,6 +326,9 @@
                 </div>
             </div>
             <div id="kdePlot"></div>
+                <div class="w-96 h-56">
+                    <Boxplot {median} {p25} {p75} {mean}/>
+                </div>
             <p class="text-cbs-white">Help us and send a correction: </p>
             <div class="flex m-2 h-10 items-center space-x-2">
                 <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
