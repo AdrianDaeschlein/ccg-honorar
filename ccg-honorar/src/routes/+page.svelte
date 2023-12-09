@@ -2,6 +2,7 @@
     import * as XLSX from 'xlsx';
     import * as d3 from 'd3';
     import Boxplot from '$lib/boxplot.svelte';
+    import Linechart from '$lib/linechart.svelte';
     import { onMount } from 'svelte';
     import { initializeApp } from "firebase/app";
     import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
@@ -78,6 +79,7 @@
     })
 
     function onCalculate() {
+        isLoading = true;
         fetch('../src/lib/baseline.xlsx')
             .then(response => {
                 if (!response.ok) {
@@ -108,9 +110,11 @@
             });
 
         onAdapt();
+        isLoading = false;
     };
 
     function onAdapt() {
+        valuesCalculated = false;
         let correctionValues: { key: string, value: number[] }[] = [];
         fetch('../src/lib/baseline.xlsx')
             .then(response => {
@@ -164,15 +168,16 @@
             console.log(p25, median, p75)
             console.log(answersDict)
             for (let i in correctionValues) {
-                console.log("correctionValues i",correctionValues[i])
                 p25 = Math.round(p25 * (1 + Number(correctionValues[i].value[0])));
                 median = Math.round(median * (1 + Number(correctionValues[i].value[1])));
                 p75 = Math.round(p75 * (1 + Number(correctionValues[i].value[2])));
             }
-            console.log(p25, median, p75)
-        }, 1000);
-
-        
+            // round mean and std
+            mean = Math.round(mean);
+            std = Math.round(std);
+            isLoading = false;
+            valuesCalculated = true;
+        }, 500);
     }
 
     function sketchGraph() {
@@ -302,39 +307,54 @@
             {/if}
             <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
         </div>
-        <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl ">
+        <!-- <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl "> -->
+        <div class="output-div flex flex-col justify-between w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl min-h-full">
             <div class="flex justify-around">
                 <div class="flex flex-col items-center">
                     <p class="text-white">25th Percentile</p>
-                    <p class="text-white">{p25}</p>
+                    <p class="text-white">{p25} DKK</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <p class="text-white">Median</p>
-                    <p class="text-white">{median}</p>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-red-500 mr-2"></div> <!-- Small red square -->
+                        <p class="text-white">Median</p>
+                    </div>
+                    <p class="text-white">{median} DKK</p> <!-- Replace {median} with the actual value -->
                 </div>
                 <div class="flex flex-col items-center">
                     <p class="text-white">75th Percentile</p>
-                    <p class="text-white">{p75}</p>
+                    <p class="text-white">{p75} DKK</p>
                 </div>
                 <div class="flex flex-col items-center">
-                    <p class="text-white">Mean</p>
-                    <p class="text-white">{mean}</p>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small red square -->
+                        <p class="text-white">Mean</p>
+                    </div>
+                    <p class="text-white">{mean} DKK</p> <!-- Replace {median} with the actual value -->
                 </div>
                 <div class="flex flex-col items-center">
                     <p class="text-white">Standard Deviation</p>
-                    <p class="text-white">{std}</p>
+                    <p class="text-white">{std} DKK</p>
                 </div>
             </div>
-            <div id="kdePlot"></div>
-                <div class="w-96 h-56">
+            <!-- <div id="kdePlot"></div> -->
+            {#if !isLoading && valuesCalculated}
+                <div class="h-56 w-full flex items-center justify-center">
                     <Boxplot {median} {p25} {p75} {mean}/>
                 </div>
-            <p class="text-cbs-white">Help us and send a correction: </p>
-            <div class="flex m-2 h-10 items-center space-x-2">
-                <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <input bind:value={actual_salary} placeholder="Actual Monthly Salary in DKK" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full h-full">Send Correction</button>
-            </div>
+                    <div>
+                    <p class="text-cbs-white">Help us and send a correction: </p>
+                    <div class="flex m-2 h-10 items-center space-x-2">
+                        <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input bind:value={actual_salary} placeholder="Actual Monthly Salary in DKK" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full h-full">Send Correction</button>
+                    </div>
+                </div>
+            {/if}
+            <!-- <div class="w-96 h-56">
+                <Linechart {MONTHLY_AVG_EXPORT}/>
+            </div> -->
+            
         </div>
     </div>
 </div>
