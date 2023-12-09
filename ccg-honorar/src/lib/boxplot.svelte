@@ -26,11 +26,15 @@
     scaledAverage = scale(69323); */
   </script>
   
-  <div class="boxplot-container rounded-3xl flex items-center justify-center h-full">
+  <div class="boxplot-container rounded-2xl flex items-center justify-center h-full">
     <div class="box" style="left: {scaledP25}px; width: {scaledP75 - scaledP25}px;"></div>
     <div class="median" style="left: {scaledMedian}px;"></div>
     <div class="average" style="left: {scaledAverage}px;"></div>
-    <!-- Add other elements like whiskers, average marker, etc. -->
+
+    <!-- X-axis scale -->
+    <div class="x-axis"></div>
+    <div class="scale start">0</div>
+    <div class="scale end">200,000</div>
   </div>
   
   <style>
@@ -59,6 +63,42 @@
     .average {
       background-color: green;
     }
-    /* Additional styles for other elements */
+
+    /* X-axis line */
+    .x-axis {
+        position: absolute;
+        bottom: 30px;
+        left: 5px;
+        right: 15px;
+        width: 98%;
+        height: 2px;
+        background-color: black;
+    }
+    .x-axis::after {
+    content: '';
+    position: absolute;
+    right: -2px; /* Adjust as needed for positioning */
+    top: -5px; /* Center vertically relative to the line */
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 10px solid black;
+}
+
+    /* Scale labels */
+    .scale {
+        position: absolute;
+        bottom: 0px;
+        font-size: 12px;
+    }
+
+    .scale.start {
+        left: 5px;
+        bottom: 8px;
+    }
+
+    .scale.end {
+        right: 5px;
+        bottom: 8px;
+    }
   </style>
   
