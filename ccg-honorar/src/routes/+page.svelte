@@ -342,14 +342,15 @@
                 <div class="h-56 w-full flex items-center justify-center">
                     <Boxplot {median} {p25} {p75} {mean}/>
                 </div>
-                    <div>
-                    <p class="text-cbs-white">Help us and send a correction: </p>
-                    <div class="flex m-2 h-10 items-center space-x-2">
-                        <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <input bind:value={actual_salary} placeholder="Actual Monthly Salary in DKK" type="text" id="small-input" class="block p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full h-full">Send Correction</button>
+                <div class="">
+                    <p class="text-cbs-white">Help us and send a correction:</p>
+                    <div class="flex flex-col sm:flex-row m-2 items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                        <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input bind:value={actual_salary} placeholder="Actual Monthly Salary in DKK" type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full w-full sm:w-auto">Send Correction</button>
                     </div>
                 </div>
+                
             {/if}
             <!-- <div class="w-96 h-56">
                 <Linechart {MONTHLY_AVG_EXPORT}/>
