@@ -111,6 +111,7 @@
 
         onAdapt();
         isLoading = false;
+        scrollToOutput();
     };
 
     function onAdapt() {
@@ -244,9 +245,19 @@
 		await addDoc(collection(db, 'honorar-corrections'), correctionAnswerDict);
 	}
 
+    function scrollToOutput() {
+        setTimeout(() => {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 500);
+    }
+
 </script>
 
 <style>
+    
     .tooltip:hover .tooltiptext {
       visibility: visible;
       opacity: 1;
@@ -273,8 +284,8 @@
 <div class="flex justify-end mt-2 mr-2">
     <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
-<h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-20">BOARD FEE CALCULATOR</h1>
-<p class="text-cbs-blue font-cbs-serif-italic ml-20">What are common salaries for Danish Board Members?</p>
+<h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">BOARD FEE CALCULATOR</h1>
+<p class="text-cbs-blue font-cbs-serif-italic ml-1 md:ml-20">What are common salaries for Danish Board Members?</p>
 
 <div class="container mx-auto">
     <div class="flex flex-col md:flex-row">
@@ -308,31 +319,31 @@
             <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
         </div>
         <!-- <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl "> -->
-        <div class="output-div flex flex-col justify-between w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl min-h-full">
-            <div class="flex justify-around">
-                <div class="flex flex-col items-center">
+        <div id="outputDiv" class="output-div flex flex-col justify-between w-full p-4 bg-cbs-blue rounded-t-3xl  md:rounded-3xl min-h-full">
+            <div class="flex flex-wrap justify-around text-center">
+                <div class="flex flex-col items-center m-2">
                     <p class="text-white">25th Percentile</p>
                     <p class="text-white">{p25} DKK</p>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div class="flex items-center">
+                <div class="flex flex-col items-center m-2">
+                    <div class="flex items-center justify-center">
                         <div class="w-4 h-4 bg-red-500 mr-2"></div> <!-- Small red square -->
                         <p class="text-white">Median</p>
                     </div>
-                    <p class="text-white">{median} DKK</p> <!-- Replace {median} with the actual value -->
+                    <p class="text-white">{median} DKK</p>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center m-2">
                     <p class="text-white">75th Percentile</p>
                     <p class="text-white">{p75} DKK</p>
                 </div>
-                <div class="flex flex-col items-center">
-                    <div class="flex items-center">
-                        <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small red square -->
+                <div class="flex flex-col items-center m-2">
+                    <div class="flex items-center justify-center">
+                        <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small green square -->
                         <p class="text-white">Mean</p>
                     </div>
-                    <p class="text-white">{mean} DKK</p> <!-- Replace {median} with the actual value -->
+                    <p class="text-white">{mean} DKK</p>
                 </div>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center m-2">
                     <p class="text-white">Standard Deviation</p>
                     <p class="text-white">{std} DKK</p>
                 </div>
@@ -342,7 +353,7 @@
                 <div class="h-56 w-full flex items-center justify-center">
                     <Boxplot {median} {p25} {p75} {mean}/>
                 </div>
-                <div class="">
+                <div class="pt-4">
                     <p class="text-cbs-white">Help us and send a correction:</p>
                     <div class="flex flex-col sm:flex-row m-2 items-center space-y-2 sm:space-y-0 sm:space-x-2">
                         <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
