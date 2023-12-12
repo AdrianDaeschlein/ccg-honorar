@@ -1,29 +1,50 @@
 <script lang="ts">
     import "../lib/styles/global.css";
+    import {onMount, onDestroy} from "svelte";
+
+    let containerWidth: number;
+    const maxStatValue = 300000; // Assuming your stats are in a range of 0-100
+
+    let scaledMedian: number;
+    let scaledP25: number;
+    let scaledP75: number;
+    let scaledAverage: number;
+
+    onMount(() => {
+        updateWidth();
+        
+        // return () => window.removeEventListener("resize", updateWidth);
+        //timeout then print
+        setTimeout(() => {
+            window.addEventListener("resize", updateWidth);
+            setTimeout(() => {
+              scaledMedian = scale(median);
+              scaledP25 = scale(p25);
+              scaledP75 = scale(p75);
+              scaledAverage = scale(mean);
+            }, 250);
+        }, 250);
+    });
 
     export let median: number;
     export let p25: number;
     export let p75: number;
     export let mean: number;
   
-    const containerWidth = 500; // Width of the boxplot container in pixels
-    const maxStatValue = 200000; // Assuming your stats are in a range of 0-100
+    // Calculate scaled dimensions and positions
+    function updateWidth() {
+      containerWidth = window.innerWidth * 0.9; // 90% of the viewport width
+      if (containerWidth > 500) containerWidth = 500; // Max width of 500px
+    }
   
     // Function to scale the stat value to container width
     function scale(value: number) {
       return (value / maxStatValue) * containerWidth;
     }
-  
-    // Calculate scaled dimensions and positions
-    let scaledMedian = scale(median);
-    let scaledP25 = scale(p25);
-    let scaledP75 = scale(p75);
-    let scaledAverage = scale(mean);
-    // Additional calculations for whiskers or other elements can be added here
-    /* scaledMedian = scale(37969);
-    scaledP25 = scale(19594);
-    scaledP75 = scale(73172);
-    scaledAverage = scale(69323); */
+
+    onDestroy(() => {
+      window.removeEventListener('resize', updateWidth);
+    });
   </script>
   
   <div class="boxplot-container rounded-2xl flex items-center justify-center h-full">
@@ -34,13 +55,15 @@
     <!-- X-axis scale -->
     <div class="x-axis"></div>
     <div class="scale start">0</div>
-    <div class="scale end">200,000</div>
+    <div class="scale middle">150.000</div>
+    <div class="scale end">300.000</div>
   </div>
   
   <style>
     .boxplot-container {
       position: relative;
-      width: 500px;
+      width: 90vw;
+      max-width: 500px;
       height: 224px;
       /* Additional container styles */
       background-color: white;
@@ -93,6 +116,10 @@
 
     .scale.start {
         left: 5px;
+        bottom: 8px;
+    }
+
+    .scale.middle {
         bottom: 8px;
     }
 
