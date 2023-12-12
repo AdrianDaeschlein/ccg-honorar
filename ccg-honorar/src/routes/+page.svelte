@@ -166,8 +166,6 @@
         
         // timeout to wait for the fetch to finish
         setTimeout(() => {
-            console.log(p25, median, p75)
-            console.log(answersDict)
             for (let i in correctionValues) {
                 p25 = Math.round(p25 * (1 + Number(correctionValues[i].value[0])));
                 median = Math.round(median * (1 + Number(correctionValues[i].value[1])));

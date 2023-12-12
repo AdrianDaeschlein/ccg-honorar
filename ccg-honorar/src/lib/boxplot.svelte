@@ -12,18 +12,7 @@
 
     onMount(() => {
         updateWidth();
-        
-        // return () => window.removeEventListener("resize", updateWidth);
-        //timeout then print
-        setTimeout(() => {
-            window.addEventListener("resize", updateWidth);
-            setTimeout(() => {
-              scaledMedian = scale(median);
-              scaledP25 = scale(p25);
-              scaledP75 = scale(p75);
-              scaledAverage = scale(mean);
-            }, 250);
-        }, 250);
+        return () => window.removeEventListener("resize", updateWidth);
     });
 
     export let median: number;
@@ -33,8 +22,12 @@
   
     // Calculate scaled dimensions and positions
     function updateWidth() {
-      containerWidth = window.innerWidth * 0.9; // 90% of the viewport width
-      if (containerWidth > 500) containerWidth = 500; // Max width of 500px
+      containerWidth = Math.min(window.innerWidth * 0.9, 500);
+        // Update scale positions reactively
+        scaledMedian = scale(median);
+        scaledP25 = scale(p25);
+        scaledP75 = scale(p75);
+        scaledAverage = scale(mean);
     }
   
     // Function to scale the stat value to container width
