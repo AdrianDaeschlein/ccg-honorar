@@ -83,7 +83,7 @@
 
     function onCalculate() {
         isLoading = true;
-        fetch('../src/lib/baseline.xlsx')
+        fetch('/baseline.xlsx')
             .then(response => {
                 if (!response.ok) {
                     throw new Error("HTTP error " + response.status);
@@ -120,7 +120,7 @@
     function onAdapt() {
         valuesCalculated = false;
         let correctionValues: { key: string, value: number[] }[] = [];
-        fetch('../src/lib/baseline.xlsx')
+        fetch('/baseline.xlsx')
             .then(response => {
                 if (!response.ok) {
                     throw new Error("HTTP error " + response.status);
