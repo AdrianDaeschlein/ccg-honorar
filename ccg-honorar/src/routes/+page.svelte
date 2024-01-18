@@ -8,6 +8,9 @@
     import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore/lite';
     import "../lib/styles/global.css";
 
+    // assets
+    import cbs_logo from "$lib/cbs_logo_ccg_rgb_blue.svg";
+
     const firebaseConfig = {
         apiKey: "AIzaSyCSq9_HALkQ9bLphnpvQYdlJjKei-B3NMg",
         authDomain: "ccg-honorar.firebaseapp.com",
@@ -280,7 +283,8 @@
 </head>
 <!-- CCG Logo -->
 <div class="flex justify-end mt-2 mr-2">
-    <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4">
+    <!-- <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4"> -->
+    <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
 <h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">BOARD FEE CALCULATOR</h1>
 <p class="text-cbs-blue font-cbs-serif-italic ml-1 md:ml-20">What are common salaries for Danish Board Members?</p>
