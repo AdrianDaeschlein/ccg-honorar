@@ -45,7 +45,7 @@
     let p75 = 0;
 
     onMount(async () => {
-        fetch('../src/lib/honorar-variables.json')
+        fetch('/honorar-variables.json')
             .then((response) => response.json())
             .then(json => {
                 HONORAR_VARIABLES = json
@@ -54,14 +54,14 @@
                 isLoading = false;
             });
 
-        fetch('../src/lib/data_values.json')
+        fetch('/data_values.json')
             .then((response) => response.json())
             .then(json => {
                 DATA_VALUES = json
                 isLoading = false;
             });
         
-        fetch('../src/lib/monthly_avg_export.xlsx')
+        fetch('/monthly_avg_export.xlsx')
         .then(response => {
                 if (!response.ok) {
                     throw new Error("HTTP error " + response.status);
@@ -283,7 +283,6 @@
 </head>
 <!-- CCG Logo -->
 <div class="flex justify-end mt-2 mr-2">
-    <!-- <img src="../src/lib/cbs_logo_ccg_rgb_blue.svg" alt="CBS Logo" class="w-1/2 md:w-1/4"> -->
     <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
 <h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">BOARD FEE CALCULATOR</h1>
