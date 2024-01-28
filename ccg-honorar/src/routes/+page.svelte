@@ -44,8 +44,12 @@
     let p25 = 0;
     let p75 = 0;
 
+    let isEnglish = true;
+    let text = "text";
+    let explanation = "explanation";
+
     onMount(async () => {
-        fetch('/honorar-variables.json')
+        fetch('/honorar-variables2.json')
             .then((response) => response.json())
             .then(json => {
                 HONORAR_VARIABLES = json
@@ -255,6 +259,12 @@
         }, 500);
     }
 
+    function onChangeLanguage(event: any) {
+        isEnglish = event.target.value == "true" ? true : false;
+        isEnglish ? text = "text" : text = "danish_text";
+        isEnglish ? explanation = "explanation" : explanation = "danish_explanation";
+    }
+
 </script>
 
 <style>
@@ -283,6 +293,12 @@
 </head>
 <!-- CCG Logo -->
 <div class="flex justify-end mt-2 mr-2">
+    <select
+    on:change={onChangeLanguage}
+    class="mr-2">
+        <option value="true" selected>🇬🇧 English</option>
+        <option value="false">🇩🇰 Danish</option>
+    </select>
     <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
 <h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">BOARD FEE CALCULATOR</h1>
@@ -298,12 +314,12 @@
                 {#each results as result}
                 <div class="flex items-center align-middle m-2">
                     <div class="flex items-center w-1/2 ">
-                        <span class="align-middle text-sm">{result[1].text}</span>
+                        <span class="align-middle text-sm">{result[1][text]}</span>
                     </div>
                     <div class="tooltip ml-2 mr-2 justify-items-center">
                         <span class="material-icons align-middle">info</span>
                         <div class="tooltiptext">
-                            {result[1].explanation}
+                            {result[1][explanation]}
                         </div>
                     </div>
                     <select 

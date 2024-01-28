@@ -1,0 +1,262 @@
+{
+  "employees": {
+    "text": "Number of employees",
+    "explanation": "Select the number of employees in your organization",
+    "options": [
+      {
+        "text": "1-4",
+        "value": "1"
+      },
+      {
+        "text": "5-9",
+        "value": "2"
+      },
+      {
+        "text": "10-50",
+        "value": "3"
+      },
+      {
+        "text": "50-250",
+        "value": "4"
+      },
+      {
+        "text": "250+",
+        "value": "5"
+      }
+    ],
+    "danish_key": "",
+    "danish_text": "Antal medarbejdere",
+    "danish_explanation": "Vælg antallet af medarbejdere i din organisation"
+  },
+  "board_size": {
+    "text": "Board Size",
+    "explanation": "How many active people should sit on the board?",
+    "options": [
+      {
+        "text": "1-3",
+        "value": "1"
+      },
+      {
+        "text": "4-6",
+        "value": "2"
+      },
+      {
+        "text": "7-9",
+        "value": "3"
+      },
+      {
+        "text": "9+",
+        "value": "4"
+      }
+    ],
+    "danish_key": "board_size_fordeling",
+    "danish_text": "Bestyrelsens størrelse",
+    "danish_explanation": "Hvor mange aktive personer bør sidde i bestyrelsen?"
+  },
+  "average_wage_cost": {
+    "text": "Average wage cost",
+    "explanation": "What is the average wage cost in your organization?",
+    "options": [
+      {
+        "text": "0-1000",
+        "value": "1"
+      },
+      {
+        "text": "1000-2000",
+        "value": "2"
+      },
+      {
+        "text": "2000-3000",
+        "value": "3"
+      },
+      {
+        "text": "3000-4000",
+        "value": "4"
+      },
+      {
+        "text": "4000-5000",
+        "value": "5"
+      },
+      {
+        "text": "5000-6000",
+        "value": "6"
+      },
+      {
+        "text": "6000-7000",
+        "value": "7"
+      },
+      {
+        "text": "7000-8000",
+        "value": "8"
+      },
+      {
+        "text": "8000-9000",
+        "value": "9"
+      },
+      {
+        "text": "9000-10000",
+        "value": "10"
+      },
+      {
+        "text": "10000+",
+        "value": "11"
+      }
+    ],
+    "danish_key": "laborcosts_employees",
+    "danish_text": "Gennemsnitlige lønomkostninger",
+    "danish_explanation": "Hvad er de gennemsnitlige lønomkostninger i din organisation?"
+  },
+  "as": {
+    "text": "A/S",
+    "explanation": "Is your organization an A/S?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "as",
+    "danish_text": "A/S",
+    "danish_explanation": "Er din organisation en A/S?"
+  },
+  "aps": {
+    "text": "ApS",
+    "explanation": "Is your organization an ApS?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "",
+    "danish_text": "ApS",
+    "danish_explanation": "Er din organisation en ApS?"
+  },
+  "foundation": {
+    "text": "Foundation",
+    "explanation": "Is your organization a foundation?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "foundation",
+    "danish_text": "Fond",
+    "danish_explanation": "Er din organisation en fond?"
+  },
+  "owner_managed": {
+    "text": "Owner managed",
+    "explanation": "Is your organization owner managed?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "ceo_board",
+    "danish_text": "Ejerdrevet",
+    "danish_explanation": "Er din organisation ejerdrevet?"
+  },
+  "listed_experience": {
+    "text": "Listed experience",
+    "explanation": "Does at least one of the board members have experience as a board member of a company, which is listed on a stock exchange?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "board_listed_exp",
+    "danish_text": "Børsnoteret erfaring",
+    "danish_explanation": "Har mindst ét bestyrelsesmedlem erfaring som bestyrelsesmedlem i et børsnoteret selskab?"
+  },
+  "daughter": {
+    "text": "Daughter",
+    "explanation": "Is your organization a daughter company?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "datter",
+    "danish_text": "Datterselskab",
+    "danish_explanation": "Er din organisation et datterselskab?"
+  },
+  "parent": {
+    "text": "Parent",
+    "explanation": "Is your organization a parent company or holding?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "mother",
+    "danish_text": "Moderselskab",
+    "danish_explanation": "Er din organisation et moderselskab eller holdingselskab?"
+  },
+  "foreign_board": {
+    "text": "Foreign board members",
+    "explanation": "Are there foreign board members in your organization?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "foreign_board",
+    "danish_text": "Udenlandske medlemmer",
+    "danish_explanation": "Er der udenlandske bestyrelsesmedlemmer i din organisation?"
+  },
+  "listed": {
+    "text": "Listed",
+    "explanation": "Is your organization listed on a stock exchange?",
+    "options": [
+      {
+        "text": "Yes",
+        "value": "1"
+      },
+      {
+        "text": "No",
+        "value": "2"
+      }
+    ],
+    "danish_key": "listed",
+    "danish_text": "Børsnoteret",
+    "danish_explanation": "Er din organisation børsnoteret?"
+  }
+}
