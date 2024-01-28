@@ -325,7 +325,11 @@
                     <select 
                     bind:value={answersDict[result[0]]}
                     id="employees" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Select answer</option>
+                        {#if isEnglish}
+                            <option selected>Select</option>
+                        {:else}
+                            <option selected>Vælg</option>
+                        {/if}
                         {#each result[1].options as option}
                             <option value="{option.value}">{option.text}</option>
                         {/each}
@@ -339,7 +343,7 @@
         <div id="outputDiv" class="output-div flex flex-col justify-between w-full p-4 bg-cbs-blue rounded-t-3xl  md:rounded-3xl min-h-full">
             <div class="flex flex-wrap justify-around text-center">
                 <div class="flex flex-col items-center m-2">
-                    <p class="text-white">25th Percentile</p>
+                    <p class="text-white">{isEnglish ? "25th Percentile" : "25. Percentil"}</p>
                     <p class="text-white">{p25} DKK</p>
                 </div>
                 <div class="flex flex-col items-center m-2">
@@ -350,18 +354,18 @@
                     <p class="text-white">{median} DKK</p>
                 </div>
                 <div class="flex flex-col items-center m-2">
-                    <p class="text-white">75th Percentile</p>
+                    <p class="text-white">{isEnglish ? "75th Percentile" : "75. Percentil"}</p>
                     <p class="text-white">{p75} DKK</p>
                 </div>
                 <div class="flex flex-col items-center m-2">
                     <div class="flex items-center justify-center">
                         <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small green square -->
-                        <p class="text-white">Mean</p>
+                        <p class="text-white">{isEnglish ? "Mean" : "Gennemsnit"}</p>
                     </div>
                     <p class="text-white">{mean} DKK</p>
                 </div>
                 <div class="flex flex-col items-center m-2">
-                    <p class="text-white">Standard Deviation</p>
+                    <p class="text-white">{isEnglish ? "Standard Deviation" : "Standardafvigelse"}</p>
                     <p class="text-white">{std} DKK</p>
                 </div>
             </div>
