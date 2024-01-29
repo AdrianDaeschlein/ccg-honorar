@@ -47,6 +47,7 @@
     let isEnglish = true;
     let text = "text";
     let explanation = "explanation";
+    let options = "options";
 
     onMount(async () => {
         fetch('/honorar-variables2.json')
@@ -263,6 +264,7 @@
         isEnglish = event.target.value == "true" ? true : false;
         isEnglish ? text = "text" : text = "danish_text";
         isEnglish ? explanation = "explanation" : explanation = "danish_explanation";
+        isEnglish ? options = "options" : options = "danish_options";
     }
 
 </script>
@@ -333,6 +335,9 @@
                         {#each result[1].options as option}
                             <option value="{option.value}">{option.text}</option>
                         {/each}
+                        <!-- {#each result[1][options] as option}
+                            <option value="{option.value}">{option.text}</option>
+                        {/each} -->
                     </select>
                 </div>
                 {/each}
