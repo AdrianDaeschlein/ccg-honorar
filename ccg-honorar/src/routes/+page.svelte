@@ -33,6 +33,7 @@
     let results: any[] = [];
     let isLoading = true;
     let valuesCalculated = false;
+    let showAdvanced = false;
     let answersDict: { [key: string]: string } = {};
     
     let keyword = ""
@@ -304,7 +305,7 @@
     <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
 <h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">{isEnglish ? "BOARD FEE CALCULATOR" : "BEREGNER AF BESTYRELSESHONORAR"}</h1>
-<p class="text-cbs-blue font-cbs-serif-italic ml-1 md:ml-20">{isEnglish ? "What are common salaries for Danish Board Members?" : "Hvad er almindelige lønninger for danske bestyrelsesmedlemmer?"}</p>
+<p class="text-cbs-blue font-cbs-serif-italic mb-4 ml-1 md:ml-20">{isEnglish ? "What are common salaries for Danish Board Members?" : "Hvad er almindelige lønninger for danske bestyrelsesmedlemmer?"}</p>
 
 <div class="container mx-auto">
     <div class="flex flex-col md:flex-row">
@@ -349,53 +350,58 @@
         </div>
         <!-- <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl "> -->
         <div id="outputDiv" class="output-div flex flex-col justify-between w-full p-4 bg-cbs-blue rounded-t-3xl  md:rounded-3xl min-h-full">
-            <div class="flex flex-wrap justify-around text-center">
-                <div class="flex flex-col items-center m-2">
-                    <p class="text-white">{isEnglish ? "25th Percentile" : "25. Percentil"}</p>
-                    <p class="text-white">{p25} DKK</p>
-                </div>
-                <div class="flex flex-col items-center m-2">
-                    <div class="flex items-center justify-center">
-                        <div class="w-4 h-4 bg-red-500 mr-2"></div> <!-- Small red square -->
-                        <p class="text-white">Median</p>
-                    </div>
-                    <p class="text-white">{median} DKK</p>
-                </div>
-                <div class="flex flex-col items-center m-2">
-                    <p class="text-white">{isEnglish ? "75th Percentile" : "75. Percentil"}</p>
-                    <p class="text-white">{p75} DKK</p>
-                </div>
-                <div class="flex flex-col items-center m-2">
-                    <div class="flex items-center justify-center">
-                        <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small green square -->
-                        <p class="text-white">{isEnglish ? "Mean" : "Gennemsnit"}</p>
-                    </div>
-                    <p class="text-white">{mean} DKK</p>
-                </div>
-                <div class="flex flex-col items-center m-2">
-                    <p class="text-white">{isEnglish ? "Standard Deviation" : "Standardafvigelse"}</p>
-                    <p class="text-white">{std} DKK</p>
-                </div>
+            <div class="flex flex-col items-center m-2 text-center">
+                <p class="text-3xl font-cbs-new-bold text-white">MEDIAN: {median} DKK</p>
             </div>
-            <!-- <div id="kdePlot"></div> -->
-            {#if !isLoading && valuesCalculated}
-                <div class="h-56 w-full flex items-center justify-center">
-                    <Boxplot {median} {p25} {p75} {mean}/>
-                </div>
-                <div class="pt-4">
-                    <p class="text-cbs-white">{isEnglish ? "Help us and send a correction:" : "Hjælp os og send en rettelse:"}</p>
-                    <div class="flex flex-col sm:flex-row m-2 items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                        <input bind:value={keyword} placeholder={isEnglish ? "Keyword" : "Nøgleord"} type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <input bind:value={actual_salary} placeholder={isEnglish ? "Actual Monthly Salary in DKK" : "Faktisk månedsløn i DKK"} type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full w-full sm:w-auto">Send</button>
+            {#if !showAdvanced}
+                <button on:click={() => showAdvanced = !showAdvanced} class="bg-cbs-white text-cbs-blue font-bold py-2 px-4 rounded-full mt-4">
+                    {isEnglish ? "Show Advanced" : "Vis Avanceret"}
+                </button>
+            {/if}    
+            {#if showAdvanced}
+                <div class="flex flex-wrap justify-around text-center">
+                    <div class="flex flex-col items-center m-2">
+                        <p class="text-white">{isEnglish ? "25th Percentile" : "25. Percentil"}</p>
+                        <p class="text-white">{p25} DKK</p>
+                    </div>
+                    <div class="flex flex-col items-center m-2">
+                        <div class="flex items-center justify-center">
+                            <div class="w-4 h-4 bg-red-500 mr-2"></div> <!-- Small red square -->
+                            <p class="text-white">Median</p>
+                        </div>
+                        <p class="text-white">{median} DKK</p>
+                    </div>
+                    <div class="flex flex-col items-center m-2">
+                        <p class="text-white">{isEnglish ? "75th Percentile" : "75. Percentil"}</p>
+                        <p class="text-white">{p75} DKK</p>
+                    </div>
+                    <div class="flex flex-col items-center m-2">
+                        <div class="flex items-center justify-center">
+                            <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small green square -->
+                            <p class="text-white">{isEnglish ? "Mean" : "Gennemsnit"}</p>
+                        </div>
+                        <p class="text-white">{mean} DKK</p>
+                    </div>
+                    <div class="flex flex-col items-center m-2">
+                        <p class="text-white">{isEnglish ? "Standard Deviation" : "Standardafvigelse"}</p>
+                        <p class="text-white">{std} DKK</p>
                     </div>
                 </div>
-                
+                <!-- <div id="kdePlot"></div> -->
+                {#if !isLoading && valuesCalculated}
+                    <div class="h-56 w-full flex items-center justify-center">
+                        <Boxplot {median} {p25} {p75} {mean}/>
+                    </div>
+                    <div class="pt-4">
+                        <p class="text-cbs-white">{isEnglish ? "Help us and send a correction:" : "Hjælp os og send en rettelse:"}</p>
+                        <div class="flex flex-col sm:flex-row m-2 items-center space-y-2 sm:space-y-0 sm:space-x-2">
+                            <input bind:value={keyword} placeholder={isEnglish ? "Keyword" : "Nøgleord"} type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <input bind:value={actual_salary} placeholder={isEnglish ? "Actual Monthly Salary in DKK" : "Faktisk månedsløn i DKK"} type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full w-full sm:w-auto">Send</button>
+                        </div>
+                    </div>
+                {/if}
             {/if}
-            <!-- <div class="w-96 h-56">
-                <Linechart {MONTHLY_AVG_EXPORT}/>
-            </div> -->
-            
         </div>
     </div>
 </div>
