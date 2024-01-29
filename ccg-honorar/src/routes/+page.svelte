@@ -301,8 +301,8 @@
     </select>
     <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
-<h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">BOARD FEE CALCULATOR</h1>
-<p class="text-cbs-blue font-cbs-serif-italic ml-1 md:ml-20">What are common salaries for Danish Board Members?</p>
+<h1 class="text-3xl font-cbs-new-bold text-cbs-blue ml-1 md:ml-20 mt-3 md:mt-0">{isEnglish ? "BOARD FEE CALCULATOR" : "BEREGNER AF BESTYRELSESHONORAR"}</h1>
+<p class="text-cbs-blue font-cbs-serif-italic ml-1 md:ml-20">{isEnglish ? "What are common salaries for Danish Board Members?" : "Hvad er almindelige lønninger for danske bestyrelsesmedlemmer?"}</p>
 
 <div class="container mx-auto">
     <div class="flex flex-col md:flex-row">
@@ -337,7 +337,10 @@
                 </div>
                 {/each}
             {/if}
-            <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">Calculate</button> 
+            <button on:click={() => location.reload()} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">
+                {isEnglish ? "Refresh" : "Genindlæs"}
+            </button>
+            <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">{isEnglish ? "Calculate" : "Beregne"}</button>
         </div>
         <!-- <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl "> -->
         <div id="outputDiv" class="output-div flex flex-col justify-between w-full p-4 bg-cbs-blue rounded-t-3xl  md:rounded-3xl min-h-full">
@@ -375,11 +378,11 @@
                     <Boxplot {median} {p25} {p75} {mean}/>
                 </div>
                 <div class="pt-4">
-                    <p class="text-cbs-white">Help us and send a correction:</p>
+                    <p class="text-cbs-white">{isEnglish ? "Help us and send a correction:" : "Hjælp os og send en rettelse:"}</p>
                     <div class="flex flex-col sm:flex-row m-2 items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                        <input bind:value={keyword} placeholder="Keyword" type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <input bind:value={actual_salary} placeholder="Actual Monthly Salary in DKK" type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full w-full sm:w-auto">Send Correction</button>
+                        <input bind:value={keyword} placeholder={isEnglish ? "Keyword" : "Nøgleord"} type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <input bind:value={actual_salary} placeholder={isEnglish ? "Actual Monthly Salary in DKK" : "Faktisk månedsløn i DKK"} type="text" id="small-input" class="block p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <button on:click={pushCorrection} class="m-2 px-4 bg-cbs-white text-cbs-blue rounded-full w-full sm:w-auto">Send</button>
                     </div>
                 </div>
                 
