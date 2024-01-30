@@ -45,7 +45,7 @@
     let p25 = 0;
     let p75 = 0;
 
-    let isEnglish = true;
+    let isEnglish = false;
     let text = "text";
     let explanation = "explanation";
     let options = "options";
@@ -273,7 +273,7 @@
     function checkAllSelected() {
         allSelected = true;
         for (let i in answersDict) {
-            if (answersDict[i] == "Select") {
+            if (answersDict[i] == "Select" || answersDict[i] == "Vælg") {
                 allSelected = false;
             }
         }
@@ -309,8 +309,8 @@
     <select
     on:change={onChangeLanguage}
     class="mr-2">
-        <option value="true" selected>🇬🇧 English</option>
-        <option value="false">🇩🇰 Danish</option>
+        <option value="true">🇬🇧 English</option>
+        <option value="false" selected>🇩🇰 Danish</option>
     </select>
     <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
