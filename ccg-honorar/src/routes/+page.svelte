@@ -50,6 +50,8 @@
     let explanation = "explanation";
     let options = "options";
 
+    let allSelected = false;
+
     onMount(async () => {
         fetch('/honorar-variables2.json')
             .then((response) => response.json())
@@ -268,6 +270,14 @@
         isEnglish ? options = "options" : options = "danish_options";
     }
 
+    function checkAllSelected() {
+        allSelected = true;
+        for (let i in answersDict) {
+            if (answersDict[i] == "Select") {
+                allSelected = false;
+            }
+        }
+    }
 </script>
 
 <style>
@@ -327,6 +337,7 @@
                     </div>
                     <select 
                     bind:value={answersDict[result[0]]}
+                    on:change={checkAllSelected}
                     id="employees" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         {#if isEnglish}
                             <option selected>Select</option>
@@ -346,7 +357,7 @@
             <button on:click={() => location.reload()} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">
                 {isEnglish ? "Refresh" : "Genindlæs"}
             </button>
-            <button on:click={onCalculate} class="bg-cbs-blue text-white font-bold py-2 px-4 rounded-full mt-4">{isEnglish ? "Calculate" : "Beregne"}</button>
+            <button on:click={onCalculate} disabled={!allSelected} class="{allSelected ? 'bg-cbs-blue' : 'bg-gray-400'} text-white font-bold py-2 px-4 rounded-full mt-4">{isEnglish ? "Calculate" : "Beregne"}</button>
         </div>
         <!-- <div class="output-div w-full md:w-2/3 p-4 bg-cbs-blue rounded-3xl "> -->
         <div id="outputDiv" class="output-div flex flex-col justify-between w-full p-4 bg-cbs-blue rounded-t-3xl  md:rounded-3xl min-h-full">
