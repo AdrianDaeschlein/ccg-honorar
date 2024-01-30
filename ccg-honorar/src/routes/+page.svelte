@@ -309,8 +309,8 @@
     <select
     on:change={onChangeLanguage}
     class="mr-2">
-        <option value="true">🇬🇧 English</option>
         <option value="false" selected>🇩🇰 Danish</option>
+        <option value="true">🇬🇧 English</option>
     </select>
     <img src={cbs_logo} alt="CBS Logo" class="w-1/2 md:w-1/4">
 </div>
@@ -372,23 +372,29 @@
             {#if showAdvanced}
                 <div class="flex flex-wrap justify-around text-center">
                     <div class="flex flex-col items-center m-2">
-                        <p class="text-white">{isEnglish ? "25th Percentile" : "25. Percentil"}</p>
+                        <div class="flex items-center justify-center">
+                            <div class="w-4 h-4 bg-cbs-middle-blue mr-2 rounded-sm"></div> <!-- Small red square -->
+                            <p class="text-white">{isEnglish ? "25th Percentile" : "25. Percentil"}</p>
+                        </div>
                         <p class="text-white">{p25} DKK</p>
                     </div>
                     <div class="flex flex-col items-center m-2">
                         <div class="flex items-center justify-center">
-                            <div class="w-4 h-4 bg-red-500 mr-2"></div> <!-- Small red square -->
+                            <div class="w-4 h-4 bg-cbs-red mr-2 rounded-sm"></div> <!-- Small red square -->
                             <p class="text-white">Median</p>
                         </div>
                         <p class="text-white">{median} DKK</p>
                     </div>
                     <div class="flex flex-col items-center m-2">
-                        <p class="text-white">{isEnglish ? "75th Percentile" : "75. Percentil"}</p>
+                        <div class="flex items-center justify-center">
+                            <div class="w-4 h-4 bg-cbs-middle-blue mr-2 rounded-sm"></div> <!-- Small red square -->
+                            <p class="text-white">{isEnglish ? "75th Percentile" : "75. Percentil"}</p>
+                        </div>
                         <p class="text-white">{p75} DKK</p>
                     </div>
                     <div class="flex flex-col items-center m-2">
                         <div class="flex items-center justify-center">
-                            <div class="w-4 h-4 bg-green-500 mr-2"></div> <!-- Small green square -->
+                            <div class="w-4 h-4 bg-cbs-green mr-2 rounded-sm"></div> <!-- Small green square -->
                             <p class="text-white">{isEnglish ? "Mean" : "Gennemsnit"}</p>
                         </div>
                         <p class="text-white">{mean} DKK</p>

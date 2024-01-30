@@ -42,6 +42,8 @@
   
   <div class="boxplot-container rounded-2xl flex items-center justify-center h-full">
     <div class="box" style="left: {scaledP25}px; width: {scaledP75 - scaledP25}px;"></div>
+    <div class="p25" style="left: {scaledP25}px;"></div>
+    <div class="p75" style="left: {scaledP75}px;"></div>
     <div class="median" style="left: {scaledMedian}px;"></div>
     <div class="average" style="left: {scaledAverage}px;"></div>
 
@@ -62,22 +64,38 @@
       background-color: white;
     }
     .box {
-      height: 100px;
+      height: 1px;
       position: absolute;
-      border: 1px solid black;
+      border-right: hidden;
+      border-left: hidden;
+      border-top: hidden;
+      border-color: black;
+      border-width: 1px;
       /* Additional box styles */
     }
-    .median, .average {
+    .median, .average{
       height: 100px;
       width: 2px;
       position: absolute;
       /* Additional line styles */
     }
+    .p25, .p75 {
+      height: 50px;
+      width: 2px;
+      position: absolute;
+      /* Additional line styles */
+    }
     .median {
-      background-color: red;
+      background-color: #E66A57;
     }
     .average {
-      background-color: green;
+      background-color: #50A192;
+    }
+    .p25 {
+      background-color: #6793D6;
+    }
+    .p75 {
+      background-color: #6793D6;
     }
 
     /* X-axis line */
