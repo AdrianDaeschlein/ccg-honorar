@@ -46,8 +46,8 @@
     let p75 = 0;
 
     let isEnglish = false;
-    let text = "text";
-    let explanation = "explanation";
+    let text = "danish_text";
+    let explanation = "danish_explanation";
     let options = "options";
 
     let allSelected = false;
@@ -326,7 +326,7 @@
             {:else}
                 {#each results as result}
                 <div class="flex items-center align-middle m-2">
-                    <div class="flex items-center w-1/2 ">
+                    <div class="flex items-center w-2/3">
                         <span class="align-middle text-sm">{result[1][text]}</span>
                     </div>
                     <div class="tooltip ml-2 mr-2 justify-items-center">
